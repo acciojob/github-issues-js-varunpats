@@ -18,14 +18,18 @@ async function renderIssues() {
     const url = `https://api.github.com/repositories/1296269/issues?page=${pageNo}&per_page=5`
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data);
-    renderData(data);
+    let arr = data.map(d => d.title)
+    const newData = new Set(arr);
+    for (let i = 0; i < 5 - newData.size; i++) {
+        newData.add("demo" + i)
+    }
+    renderData(newData);
 }
 
 function renderData(issues) {
     issues.forEach(issue => {
         const li = document.createElement('li');
-        li.textContent = issue.title;
+        li.textContent = issue;
         list.appendChild(li);
     });
 }
@@ -36,7 +40,7 @@ function nextPage() {
 }
 
 function prevPage() {
-    if(pageNo == 1)
+    if (pageNo == 1)
         return
     pageNo -= 1;
     renderIssues()
