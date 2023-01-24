@@ -9,7 +9,6 @@ next.addEventListener("click", nextPage);
 prev.addEventListener("click", prevPage);
 
 let pageNo = 1;
-let cnt = 0;
 
 async function renderIssues() {
     while (list.firstChild) {
@@ -23,7 +22,7 @@ async function renderIssues() {
     const newData = new Set(arr);
     let n = newData.size;
     for (let i = 0; i < 5 - n; i++) {
-        newData.add("demo" + ++cnt);
+        newData.add("demo" + i);
     }
     renderData(newData);
 }
